@@ -27,26 +27,6 @@ def dna_sequence(max_len=100):
     """
     return ''.join(choices('TGAC', k=max_len))
 
-def generate_test_sizes():
-    """
-    Returns list of sizes for testing.
-    """
-    return [100, 500, 1000, 5000, 10000]
-
-
-def generate_ordered_sequences(sizes):
-    """
-    Returns dictionary: size -> ordered sequence
-    """
-    return {size: ordered_sequence(size) for size in sizes}
-
-
-def generate_unordered_sequences(sizes):
-    """
-    Returns dictionary: size -> unordered sequence
-    """
-    return {size: unordered_sequence(size) for size in sizes}
-
 
 def main():
     """
