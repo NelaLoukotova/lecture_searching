@@ -1,5 +1,8 @@
 import os
-
+from generators import ordered_sequence
+import time
+import random
+import matplotlib.pyplot as plt
 # get current working directory path
 cwd_path = os.getcwd()
 
@@ -53,6 +56,27 @@ def binary_search(sequence, target):
 
     return None
 
+def linear_search(arr, target):
+    for x in arr:
+        if x == target:
+            return True
+    return False
+
+
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if arr[mid] == target:
+            return True
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return False
 
 def main():
         sequential_data = read_data("sequential.json", "unordered_numbers")
@@ -97,6 +121,62 @@ def main():
     print("Seřazená data:", ordered_data)
     print(f"Hledané číslo: {target_number}")
     print("Binary search index:", binary_result)
+
+
+def main():
+    sizes = [100, 500, 1000, 5000, 10000]
+
+    linear_times = []
+    binary_times = []
+    set_times = []
+
+    repeats = 50
+
+    for size in sizes:
+        arr = ordered_sequence(size)  # používáš svůj generátor
+        s = set(arr)
+
+        lin_total = 0
+        bin_total = 0
+        set_total = 0
+
+        for _ in range(repeats):
+            target = random.choice(arr)
+
+            # lineární
+            start = time.perf_counter()
+            linear_search(arr, target)
+            lin_total += time.perf_counter() - start
+
+            # binární
+            start = time.perf_counter()
+            binary_search(arr, target)
+            bin_total += time.perf_counter() - start
+
+            # set
+            start = time.perf_counter()
+            target in s
+            set_total += time.perf_counter() - start
+
+        linear_times.append(lin_total / repeats)
+        binary_times.append(bin_total / repeats)
+        set_times.append(set_total / repeats)
+
+    # --- Graf ---
+    plt.figure(figsize=(10, 6))
+
+    plt.plot(sizes, linear_times, label="Lineární vyhledávání")
+    plt.plot(sizes, binary_times, label="Binární vyhledávání")
+    plt.plot(sizes, set_times, label="Set (množina)")
+
+    plt.xlabel("Velikost vstupu")
+    plt.ylabel("Čas (s)")
+    plt.title("Porovnání vyhledávacích algoritmů")
+
+    plt.legend()
+    plt.grid()
+
+    plt.show()
 
 
 if __name__ == '__main__':
