@@ -24,11 +24,42 @@ def read_data(file_name, field):
         return data[field]
         json.dump(json_data, file_obj)
 
+def linear_search(sequence, target):
+    positions = []
+    count = 0
 
+    for index, value in enumerate(sequence):
+        if value == target:
+            positions.append(index)
+            count += 1
+
+    return {
+        "positions": positions,
+        "count": count
+    }
 
 def main():
         sequential_data = read_data("sequential.json", "unordered_numbers")
         print(sequential_data)
+
+def main():
+
+    sequential_data = read_data("sequential.json", "unordered_numbers")
+
+    if sequential_data is None:
+        print("Chyba při načítání dat.")
+        return
+
+
+    target_number = 5
+
+
+    result = linear_search(sequential_data, target_number)
+
+    print("Data:", sequential_data)
+    print(f"Hledané číslo: {target_number}")
+    print("Výsledek:", result)
+
 
 
 if __name__ == '__main__':
