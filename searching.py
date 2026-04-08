@@ -133,7 +133,7 @@ def main():
     repeats = 50
 
     for size in sizes:
-        arr = ordered_sequence(size)  # používáš svůj generátor
+        arr = ordered_sequence(size)
         s = set(arr)
 
         lin_total = 0
@@ -143,17 +143,17 @@ def main():
         for _ in range(repeats):
             target = random.choice(arr)
 
-            # lineární
+
             start = time.perf_counter()
             linear_search(arr, target)
             lin_total += time.perf_counter() - start
 
-            # binární
+
             start = time.perf_counter()
             binary_search(arr, target)
             bin_total += time.perf_counter() - start
 
-            # set
+
             start = time.perf_counter()
             target in s
             set_total += time.perf_counter() - start
@@ -162,7 +162,7 @@ def main():
         binary_times.append(bin_total / repeats)
         set_times.append(set_total / repeats)
 
-    # --- Graf ---
+
     plt.figure(figsize=(10, 6))
 
     plt.plot(sizes, linear_times, label="Lineární vyhledávání")
