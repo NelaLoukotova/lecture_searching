@@ -37,6 +37,22 @@ def linear_search(sequence, target):
         "positions": positions,
         "count": count
     }
+def binary_search(sequence, target):
+    left = 0
+    right = len(sequence) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if sequence[mid] == target:
+            return mid
+        elif sequence[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return None
+
 
 def main():
         sequential_data = read_data("sequential.json", "unordered_numbers")
@@ -60,6 +76,27 @@ def main():
     print(f"Hledané číslo: {target_number}")
     print("Výsledek:", result)
 
+def main():
+
+    unordered_data = read_data("sequential.json", "unordered_numbers")
+    target_number = 5
+
+    if unordered_data:
+        linear_result = linear_search(unordered_data, target_number)
+        print("Linear search:", linear_result)
+
+
+    ordered_data = read_data("sequential.json", "ordered_numbers")
+
+    if ordered_data is None:
+        print("Chyba při načítání seřazených dat.")
+        return
+
+    binary_result = binary_search(ordered_data, target_number)
+
+    print("Seřazená data:", ordered_data)
+    print(f"Hledané číslo: {target_number}")
+    print("Binary search index:", binary_result)
 
 
 if __name__ == '__main__':
